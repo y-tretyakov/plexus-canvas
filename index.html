@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plexus Canvas - Interactive Particle Network</title>
+    <meta name="description" content="Real-time interactive particle network visualization with dynamic parameter control">
+    <link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Canvas Area -->
+        <main class="canvas-container">
+            <canvas id="plexusCanvas" 
+                    width="800" 
+                    height="600"
+                    aria-label="Interactive particle network visualization">
+            </canvas>
+            
+            <!-- FPS Display -->
+            <div class="fps-display" id="fpsDisplay" aria-live="polite">
+                FPS: <span id="fpsValue">60</span>
+            </div>
+            
+            <!-- Loading Indicator -->
+            <div class="loading-indicator" id="loadingIndicator">
+                <div class="loading-spinner"></div>
+                <span>Initializing Plexus Canvas...</span>
+            </div>
+        </main>
+
+        <!-- Control Panel -->
+        <aside class="control-panel" id="controlPanel" role="complementary">
+            <div class="panel-header">
+                <h1>Plexus Canvas</h1>
+                <button class="panel-toggle" id="panelToggle" aria-label="Toggle control panel">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <div class="panel-content" id="panelContent">
+                <!-- Control groups will be dynamically generated -->
+                <div class="control-group" id="particlesGroup">
+                    <h2>Particles</h2>
+                    <div class="controls-container"></div>
+                </div>
+
+                <div class="control-group" id="edgesGroup">
+                    <h2>Edges</h2>
+                    <div class="controls-container"></div>
+                </div>
+
+                <div class="control-group" id="forcesGroup">
+                    <h2>Forces & Motion</h2>
+                    <div class="controls-container"></div>
+                </div>
+
+                <div class="control-group" id="styleGroup">
+                    <h2>Colors & Style</h2>
+                    <div class="controls-container"></div>
+                </div>
+
+                <div class="control-group" id="interactionGroup">
+                    <h2>Interaction</h2>
+                    <div class="controls-container"></div>
+                </div>
+
+                <div class="control-group" id="performanceGroup">
+                    <h2>Performance</h2>
+                    <div class="controls-container"></div>
+                </div>
+
+                <div class="control-group" id="presetsGroup">
+                    <h2>Presets & Export</h2>
+                    <div class="controls-container">
+                        <div class="control-item">
+                            <label for="presetSelect">Preset:</label>
+                            <select id="presetSelect" aria-label="Select preset configuration">
+                                <option value="">Select Preset...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <div class="button-row">
+                        <button id="resetBtn" class="btn btn-secondary" aria-label="Reset particle positions">Reset</button>
+                        <button id="hardResetBtn" class="btn btn-secondary" aria-label="Recreate particle system">Hard Reset</button>
+                    </div>
+                    <div class="button-row">
+                        <button id="randomizeBtn" class="btn btn-secondary" aria-label="Randomize configuration">Randomize</button>
+                        <button id="playPauseBtn" class="btn btn-primary" aria-label="Play or pause animation">
+                            <span id="playPauseText">Pause</span>
+                        </button>
+                    </div>
+                    <div class="button-row">
+                        <button id="savePngBtn" class="btn btn-success" aria-label="Save current frame as PNG">Save PNG</button>
+                        <button id="copyJsonBtn" class="btn btn-info" aria-label="Copy configuration as JSON">Copy JSON</button>
+                    </div>
+                    <div class="button-row">
+                        <button id="exportJsonBtn" class="btn btn-outline" aria-label="Export configuration to JSON file">Export JSON</button>
+                        <button id="importJsonBtn" class="btn btn-outline" aria-label="Import configuration from JSON file">Import JSON</button>
+                    </div>
+                    <div class="button-row">
+                        <button id="shareUrlBtn" class="btn btn-outline" aria-label="Generate shareable URL">Share URL</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Hidden file input for JSON import -->
+    <input type="file" id="fileInput" accept=".json" style="display: none;" aria-label="Select JSON file to import">
+
+    <!-- Status/Toast Messages -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- Keyboard Shortcuts Help -->
+    <div class="keyboard-help" id="keyboardHelp" role="dialog" aria-hidden="true">
+        <div class="help-content">
+            <h3>Keyboard Shortcuts</h3>
+            <ul>
+                <li><kbd>Space</kbd> - Play/Pause</li>
+                <li><kbd>R</kbd> - Soft Reset</li>
+                <li><kbd>Shift+R</kbd> - Hard Reset</li>
+                <li><kbd>S</kbd> - Save PNG</li>
+                <li><kbd>[</kbd> / <kbd>]</kbd> - Adjust Particle Count</li>
+                <li><kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd> - Quick Presets</li>
+                <li><kbd>?</kbd> - Toggle this help</li>
+            </ul>
+            <button class="close-help" aria-label="Close help">×</button>
+        </div>
+    </div>
+
+    <!-- Load JavaScript modules -->
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
