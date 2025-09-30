@@ -2,7 +2,7 @@
  * Plexus particle system with Structure of Arrays pattern and spatial indexing
  */
 
-import * as math from '../utils/math.js';
+import * as math from '/src/utils/math.js';
 
 /**
  * Spatial grid for efficient neighbor detection

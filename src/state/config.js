@@ -3,7 +3,7 @@
  * Handles validation, events, and persistence
  */
 
-import { clamp } from '../utils/math.js';
+import { clamp } from '/src/utils/math.js';
 
 /**
  * Default configuration object with all parameters

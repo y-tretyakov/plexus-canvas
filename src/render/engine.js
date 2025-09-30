@@ -3,15 +3,15 @@
  * Handles RAF loop, DPI scaling, and frame timing
  */
 
-import { startAnimation, stopAnimation, setFPSCap, getFPS, onFPSUpdate } from '../utils/raf.js';
-import { $ } from '../utils/dom.js';
+import { startAnimation, stopAnimation, setFPSCap, getFPS, onFPSUpdate } from '/src/utils/raf.js';
+import { $ } from '/src/utils/dom.js';
 
 /**
  * Main render engine class
  */
 class RenderEngine {
     constructor(canvasId = 'plexusCanvas') {
-        this.canvas = $(canvasId);
+        this.canvas = $(`#${canvasId}`);
         this.ctx = null;
         this.isRunning = false;
         this.isPaused = false;

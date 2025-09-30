@@ -3,8 +3,8 @@
  * Handles mouse interaction, keyboard shortcuts, and touch events
  */
 
-import { on, off, $ } from '../utils/dom.js';
-import { clamp } from '../utils/math.js';
+import { on, off, $ } from '/src/utils/dom.js';
+import { clamp } from '/src/utils/math.js';
 
 /**
  * Interaction manager class
@@ -111,35 +111,35 @@ class InteractionManager {
         if (!this.isMouseInteractionEnabled) return;
 
         // Mouse movement
-        this.addEventListenter(this.canvas, 'mousemove', (event) => {
+        this.addEventListener(this.canvas, 'mousemove', (event) => {
             this.handleMouseMove(event);
         });
 
         // Mouse enter/leave
-        this.addEventListenter(this.canvas, 'mouseenter', (event) => {
+        this.addEventListener(this.canvas, 'mouseenter', (event) => {
             this.handleMouseEnter(event);
         });
 
-        this.addEventListenter(this.canvas, 'mouseleave', (event) => {
+        this.addEventListener(this.canvas, 'mouseleave', (event) => {
             this.handleMouseLeave(event);
         });
 
         // Mouse down/up
-        this.addEventListenter(this.canvas, 'mousedown', (event) => {
+        this.addEventListener(this.canvas, 'mousedown', (event) => {
             this.handleMouseDown(event);
         });
 
-        this.addEventListenter(this.canvas, 'mouseup', (event) => {
+        this.addEventListener(this.canvas, 'mouseup', (event) => {
             this.handleMouseUp(event);
         });
 
         // Mouse wheel (for parameter adjustment)
-        this.addEventListenter(this.canvas, 'wheel', (event) => {
+        this.addEventListener(this.canvas, 'wheel', (event) => {
             this.handleMouseWheel(event);
         }, { passive: false });
 
         // Context menu (prevent)
-        this.addEventListenter(this.canvas, 'contextmenu', (event) => {
+        this.addEventListener(this.canvas, 'contextmenu', (event) => {
             event.preventDefault();
         });
     }
@@ -150,19 +150,19 @@ class InteractionManager {
     setupTouchEvents() {
         if (!this.isTouchInteractionEnabled) return;
 
-        this.addEventListenter(this.canvas, 'touchstart', (event) => {
+        this.addEventListener(this.canvas, 'touchstart', (event) => {
             this.handleTouchStart(event);
         }, { passive: false });
 
-        this.addEventListenter(this.canvas, 'touchmove', (event) => {
+        this.addEventListener(this.canvas, 'touchmove', (event) => {
             this.handleTouchMove(event);
         }, { passive: false });
 
-        this.addEventListenter(this.canvas, 'touchend', (event) => {
+        this.addEventListener(this.canvas, 'touchend', (event) => {
             this.handleTouchEnd(event);
         }, { passive: false });
 
-        this.addEventListenter(this.canvas, 'touchcancel', (event) => {
+        this.addEventListener(this.canvas, 'touchcancel', (event) => {
             this.handleTouchCancel(event);
         }, { passive: false });
     }
@@ -173,20 +173,20 @@ class InteractionManager {
     setupKeyboardEvents() {
         if (!this.isKeyboardInteractionEnabled) return;
 
-        this.addEventListenter(document, 'keydown', (event) => {
+        this.addEventListener(document, 'keydown', (event) => {
             this.handleKeyDown(event);
         });
 
-        this.addEventListenter(document, 'keyup', (event) => {
+        this.addEventListener(document, 'keyup', (event) => {
             this.handleKeyUp(event);
         });
 
         // Focus/blur for canvas
-        this.addEventListenter(this.canvas, 'focus', () => {
+        this.addEventListener(this.canvas, 'focus', () => {
             this.canvas.style.outline = '2px solid var(--color-primary)';
         });
 
-        this.addEventListenter(this.canvas, 'blur', () => {
+        this.addEventListener(this.canvas, 'blur', () => {
             this.canvas.style.outline = 'none';
         });
     }
@@ -663,7 +663,7 @@ class InteractionManager {
      * @param {Function} handler - Event handler
      * @param {Object} options - Event options
      */
-    addEventListenter(element, event, handler, options = {}) {
+    addEventListener(element, event, handler, options = {}) {
         on(element, event, handler, options);
         this.eventListeners.push({ element, event, handler, options });
     }

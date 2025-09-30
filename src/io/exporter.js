@@ -3,7 +3,7 @@
  * Handles JSON export/import, PNG export, and share URL generation
  */
 
-import { downloadBlob, copyToClipboard } from '../utils/dom.js';
+import { downloadBlob, copyToClipboard } from '/src/utils/dom.js';
 
 /**
  * Export/Import manager class

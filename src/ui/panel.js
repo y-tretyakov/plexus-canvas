@@ -3,8 +3,8 @@
  * Dynamically generates controls for all parameter groups
  */
 
-import { createElement, $, on, off } from '../utils/dom.js';
-import { clamp } from '../utils/math.js';
+import { createElement, $, on, off } from '/src/utils/dom.js';
+import { clamp } from '/src/utils/math.js';
 
 /**
  * Control panel manager class

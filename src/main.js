@@ -6,11 +6,11 @@
 import config from './state/config.js';
 import presetManager from './state/presets.js';
 import { createRenderEngine } from './render/engine.js';
-import PlexusSystem from './render/plexus.js';
-import ControlPanelManager from './ui/panel.js';
-import ExportImportManager from './io/exporter.js';
-import InteractionManager from './interaction.js';
-import { $, hide, show, on } from './utils/dom.js';
+import { PlexusSystem } from './render/plexus.js';
+import { ControlPanelManager } from './ui/panel.js';
+import { ExportImportManager } from './io/exporter.js';
+import { InteractionManager } from './interaction.js';
+import { $, hide, show, on } from '/src/utils/dom.js';
 
 /**
  * Main application class
@@ -125,11 +125,17 @@ class PlexusCanvasApp {
      */
     async initRenderEngine() {
         try {
+            // Wait for DOM to be ready and check if canvas exists
+            console.log('Looking for canvas element...');
             this.canvas = $('#plexusCanvas');
+            
             if (!this.canvas) {
+                console.error('Canvas element #plexusCanvas not found in DOM');
+                console.log('Available elements:', document.querySelectorAll('canvas'));
                 throw new Error('Canvas element not found');
             }
             
+            console.log('Canvas element found:', this.canvas);
             this.renderEngine = createRenderEngine('plexusCanvas');
             
             // Setup render engine event handlers
@@ -625,6 +631,14 @@ class PlexusCanvasApp {
  */
 async function startApp() {
     try {
+        console.log('Starting Plexus Canvas App...');
+        console.log('Document ready state:', document.readyState);
+        console.log('DOM elements check:', {
+            canvas: document.getElementById('plexusCanvas'),
+            controlPanel: document.getElementById('controlPanel'),
+            loadingIndicator: document.getElementById('loadingIndicator')
+        });
+        
         const app = new PlexusCanvasApp();
         await app.init();
         
@@ -642,11 +656,23 @@ async function startApp() {
 }
 
 // Start the application when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startApp);
-} else {
-    startApp();
+function ensureDOMReady() {
+    console.log('Checking DOM readiness...');
+    
+    if (document.readyState === 'loading') {
+        console.log('DOM still loading, waiting for DOMContentLoaded...');
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded fired, starting app...');
+            startApp();
+        });
+    } else {
+        console.log('DOM already ready, starting app immediately...');
+        // Add small delay to ensure all elements are rendered
+        setTimeout(startApp, 10);
+    }
 }
+
+ensureDOMReady();
 
 // Export for advanced usage
 export { PlexusCanvasApp };
